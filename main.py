@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 
-from nessie_api.models import Graph, GraphType, Node, Edge, Attribute
+from nessie_api.models import Graph, GraphType, Node, Edge, Attribute, plugin
 
 
 def python_file_to_graph(py_file: str | Path) -> Graph:
@@ -104,6 +104,14 @@ def python_file_to_graph(py_file: str | Path) -> Graph:
     visitor.visit(tree)
 
     return graph
+
+
+@plugin("Python sourcing plugin")
+def get_plugin_data():
+    return {
+        "handlers": {"Source_Python": python_file_to_graph},
+        "requires": [],
+    }
 
 
 if __name__ == "__main__":

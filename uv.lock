@@ -129,7 +129,7 @@ version = "0.1.0"
 source = { git = "https://github.com/Nessie-org/nessie-api.git#2a12518b4992f57e9b01e1da11d45fa5e2f12c8d" }
 
 [[package]]
-name = "nessie-json-datasource-plugin"
+name = "nessie-python-datasource-plugin"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
