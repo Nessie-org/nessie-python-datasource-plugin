@@ -1,0 +1,20 @@
+[project]
+name = "nessie-json-datasource-plugin"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "nessie-api",
+]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.13.4",
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.5",
+]
+
+[tool.uv.sources]
+nessie-api = { git = "https://github.com/Nessie-org/nessie-api.git" }
