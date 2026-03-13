@@ -1,1 +1,1 @@
-# nessie-json-datasource-plugin
+# nessie-python-datasource-plugin
