@@ -1,10 +1,19 @@
 import ast
-from pathlib import Path
 
-from nessie_api.models import Graph, GraphType, Node, Edge, Attribute, plugin
+from nessie_api.models import (
+    Graph,
+    GraphType,
+    Node,
+    Edge,
+    Attribute,
+    plugin,
+    Action,
+    SetupRequirementType,
+)
+from nessie_api.protocols import Context
 
 
-def python_file_to_graph(py_file: str | Path) -> Graph:
+def python_file_to_graph(action: Action, context: Context) -> Graph:
     """
     Parse a Python file and represent its structural elements as a graph.
 
@@ -12,6 +21,9 @@ def python_file_to_graph(py_file: str | Path) -> Graph:
     Edges represent "contains" (module->class, class->method) and
     "calls" relationships between functions/methods.
     """
+
+    py_file = action.payload.get("Python file path")
+
     with open(py_file, "r", encoding="utf-8") as f:
         source = f.read()
 
@@ -109,8 +121,9 @@ def python_file_to_graph(py_file: str | Path) -> Graph:
 @plugin("Python sourcing plugin")
 def get_plugin_data():
     return {
-        "handlers": {"Source_Python": python_file_to_graph},
+        "handlers": {"load_graph": python_file_to_graph},
         "requires": [],
+        "setup_requires": {"Python file path": SetupRequirementType.STRING},
     }
 
 

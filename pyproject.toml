@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = ["nessie-api"]
+dependencies = [
+    "nessie-api",
+]
 
 [project.entry-points.nessie_plugins]
 source_python = "main:get_plugin_data"
