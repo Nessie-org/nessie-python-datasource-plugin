@@ -28,7 +28,7 @@ def python_file_to_graph(action: Action, context: Context) -> Graph:
         source = f.read()
 
     tree = ast.parse(source)
-    graph = Graph(GraphType.DIRECTED)
+    graph = Graph(py_file, GraphType.DIRECTED)
 
     node_map: dict[str, Node] = {}
 
