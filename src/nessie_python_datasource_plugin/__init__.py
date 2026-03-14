@@ -1,4 +1,5 @@
 import ast
+import os
 
 from nessie_api.models import (
     Graph,
@@ -23,12 +24,13 @@ def python_file_to_graph(action: Action, context: Context) -> Graph:
     """
 
     py_file = action.payload.get("Python file path")
+    graph_name = os.path.basename(py_file)
 
     with open(py_file, "r", encoding="utf-8") as f:
         source = f.read()
 
     tree = ast.parse(source)
-    graph = Graph(py_file, GraphType.DIRECTED)
+    graph = Graph(graph_name, GraphType.DIRECTED)
 
     node_map: dict[str, Node] = {}
 
@@ -81,7 +83,7 @@ def python_file_to_graph(action: Action, context: Context) -> Graph:
                     )
             else:
                 # module-level function
-                mod_node = add_node(f"module:{py_file}", type="module")
+                mod_node = add_node(f"module:{graph_name}", type="module")
                 edge_id = f"edge:{mod_node.id}->{func_node.id}"
                 if edge_id not in graph._edges:
                     graph.add_edge(
